@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  list-style-type: none;
+}
+
+.gallery-item {
+  flex: 0 0 360px;
+}
+
+.gallery-image {
+  display: block;
+  width: 360px;
+  height: 200px;
+
+  
+}
