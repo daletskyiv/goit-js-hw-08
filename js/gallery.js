@@ -69,24 +69,23 @@ const href = {
     imageList: document.querySelector('.gallery'),
 }
 
-function createImageCard(imageInfo) {
+const imageCard = images.map(
+  ({preview, original,description}) => {
     return `
   <li class="gallery-item">
-  <a class="gallery-link" href="${imageInfo.original}">
+  <a class="gallery-link" href="${original}">
     <img
       class="gallery-image"
-      src="${imageInfo.preview}"
-      data-source="${imageInfo.original}"
-      alt="${imageInfo.description}"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
     />
   </a>
 </li>
     `
-}
+}).join('');
 
-const imageCard = images.map(image => createImageCard(image)).join('');
-
-href.imageList.insertAdjacentHTML('beforeend', imageCard);
+href.imageList.innerHTML = imageCard;
 
 href.imageList.addEventListener('click', selectImage);
 
@@ -94,7 +93,13 @@ function selectImage(event) {
     event.preventDefault();
     if (event.target.nodeName !== 'IMG') {
         return
-    };
-    console.log(event.target.dataset.source);
-    
+    };  
+  const showImage = event.target.dataset.source;
+  const showImageAlt = event.target.alt;
+
+  const instance = basicLightbox.create(
+    `<img src="${showImage}" alt="${showImageAlt}" />`
+  );
+  instance.show();
 }
+ 
